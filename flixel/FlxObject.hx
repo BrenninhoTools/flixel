@@ -1190,7 +1190,7 @@ class FlxObject extends FlxBasic
 	
 	/**
 	 * Centers this object on another object along the given axes.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function centerOn(target:FlxObject, axes:FlxAxes = XY):FlxObject
 	{
@@ -1205,7 +1205,7 @@ class FlxObject extends FlxBasic
 
 	/**
 	 * Places this object relative to another one, `alignX` and `alignY` go from 0 (left/top) to 1 (right/bottom).
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function alignTo(target:FlxObject, alignX = 0.5, alignY = 0.5, offsetX = 0.0, offsetY = 0.0):FlxObject
 	{

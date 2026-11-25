@@ -1,4 +1,4 @@
-### 6.2.0 (BrenninhoTools fork)
+### Unreleased (BrenninhoTools fork)
 
 #### New features:
 - `FlxG.safeArea`: The area of the game not covered by notches, rounded corners or system bars

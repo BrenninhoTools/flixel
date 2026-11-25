@@ -123,7 +123,7 @@ class FlxMath
 
 	/**
 	 * Framerate independent `lerp`, `ratio` is how far to move in 1/60th of a second.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public static inline function lerpElapsed(a:Float, b:Float, ratio:Float, elapsed:Float):Float
 	{
@@ -132,7 +132,7 @@ class FlxMath
 
 	/**
 	 * Moves `value` towards `target` by at most `step`, without overshooting.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public static function approach(value:Float, target:Float, step:Float):Float
 	{
@@ -142,7 +142,7 @@ class FlxMath
 
 	/**
 	 * Exponential decay towards `target`, `halfLife` is the time in seconds to cover half the distance.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public static function decay(value:Float, target:Float, halfLife:Float, elapsed:Float):Float
 	{
@@ -153,7 +153,7 @@ class FlxMath
 
 	/**
 	 * Wraps a float into the range `[min, max)`.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public static function wrapFloat(value:Float, min:Float, max:Float):Float
 	{

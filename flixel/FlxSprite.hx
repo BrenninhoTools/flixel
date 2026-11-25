@@ -745,7 +745,7 @@ class FlxSprite extends FlxObject
 	/**
 	 * Scales the sprite uniformly so it fits inside `width` x `height`, or covers it when `cover` is true.
 	 * Updates the hitbox.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function fitTo(width:Float, height:Float, cover = false):FlxSprite
 	{
@@ -761,7 +761,7 @@ class FlxSprite extends FlxObject
 
 	/**
 	 * Sets the scale, `y` defaults to `x`. Updates the hitbox when `hitbox` is true.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function scaleTo(x:Float, ?y:Float, hitbox = true):FlxSprite
 	{
@@ -773,7 +773,7 @@ class FlxSprite extends FlxObject
 
 	/**
 	 * Whether the sprite is drawn inside any of its cameras.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function isVisibleOnScreen():Bool
 	{

@@ -650,7 +650,7 @@ class FlxText extends FlxSprite
 	/**
 	 * Shrinks the font size until the text fits in `maxWidth`, and `maxHeight` if given.
 	 * Never goes below `minSize`. Returns the final size.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function fitToWidth(maxWidth:Float, ?maxHeight:Float, minSize = 8, ?startSize:Int):Int
 	{

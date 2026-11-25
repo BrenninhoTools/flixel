@@ -542,7 +542,7 @@ class FlxTypedGroup<T:FlxBasic> extends FlxBasic implements IFlxGroupable<T>
 	
 	/**
 	 * Counts the members that satisfy the function.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function count(func:T->Bool):Int
 	{
@@ -557,7 +557,7 @@ class FlxTypedGroup<T:FlxBasic> extends FlxBasic implements IFlxGroupable<T>
 
 	/**
 	 * Returns a new array with the members that satisfy the function.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function filter(func:T->Bool):Array<T>
 	{

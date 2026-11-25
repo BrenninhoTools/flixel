@@ -405,7 +405,7 @@ class FlxSave implements IFlxDestroyable
 	 */
 	/**
 	 * Reads a field from `data`, or `defaultValue` when it is missing or null.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function get<T>(key:String, defaultValue:T):T
 	{
@@ -417,7 +417,7 @@ class FlxSave implements IFlxDestroyable
 
 	/**
 	 * Writes a field to `data`, flushing right away when `flushNow` is true.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function set<T>(key:String, value:T, flushNow = false):T
 	{
@@ -432,7 +432,7 @@ class FlxSave implements IFlxDestroyable
 
 	/**
 	 * Whether `data` has the field.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function has(key:String):Bool
 	{
@@ -441,7 +441,7 @@ class FlxSave implements IFlxDestroyable
 
 	/**
 	 * Removes a field from `data`.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function remove(key:String, flushNow = false):Bool
 	{

@@ -1506,7 +1506,7 @@ class FlxCamera extends FlxBasic
 	
 	/**
 	 * Smoothly changes the zoom over `duration` seconds.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function zoomTo(zoom:Float, duration:Float = 0.5, ?ease:Float->Float, ?onComplete:Void->Void):Void
 	{
@@ -1528,7 +1528,7 @@ class FlxCamera extends FlxBasic
 
 	/**
 	 * Adds `amount` to the zoom right away and eases back to the previous zoom, like a beat bump.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function bumpZoom(amount:Float = 0.015, duration:Float = 0.25, ?ease:Float->Float):Void
 	{
@@ -1539,7 +1539,7 @@ class FlxCamera extends FlxBasic
 
 	/**
 	 * Whether `zoomTo` or `bumpZoom` is running.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public inline function isZoomTweening():Bool
 	{
@@ -1548,7 +1548,7 @@ class FlxCamera extends FlxBasic
 
 	/**
 	 * Stops `zoomTo` or `bumpZoom` and keeps the current zoom.
-	 * @since 6.2.0
+	 * @since 6.1.2-fork
 	 */
 	public function stopZoomTween():Void
 	{
