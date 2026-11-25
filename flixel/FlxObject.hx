@@ -1192,10 +1192,12 @@ class FlxObject extends FlxBasic
 	 * Centers this object on another object along the given axes.
 	 * @since 6.1.2-fork
 	 */
-	public function centerOn(target:FlxObject, axes:FlxAxes = FlxAxes.XY):FlxObject
+	public function centerOn(target:FlxObject, ?axes:FlxAxes):FlxObject
 	{
 		if (target == null)
 			return this;
+		if (axes == null)
+			axes = XY;
 		if (axes.x)
 			x = target.x + (target.width - width) / 2;
 		if (axes.y)
