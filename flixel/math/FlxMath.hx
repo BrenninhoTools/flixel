@@ -120,6 +120,51 @@ class FlxMath
 	{
 		return 1.0 - Math.pow(1.0 - lerp, elapsed * 60);
 	}
+
+	/**
+	 * Framerate independent `lerp`, `ratio` is how far to move in 1/60th of a second.
+	 * @since 6.2.0
+	 */
+	public static inline function lerpElapsed(a:Float, b:Float, ratio:Float, elapsed:Float):Float
+	{
+		return lerp(a, b, getElapsedLerp(ratio, elapsed));
+	}
+
+	/**
+	 * Moves `value` towards `target` by at most `step`, without overshooting.
+	 * @since 6.2.0
+	 */
+	public static function approach(value:Float, target:Float, step:Float):Float
+	{
+		step = Math.abs(step);
+		return value < target ? Math.min(value + step, target) : Math.max(value - step, target);
+	}
+
+	/**
+	 * Exponential decay towards `target`, `halfLife` is the time in seconds to cover half the distance.
+	 * @since 6.2.0
+	 */
+	public static function decay(value:Float, target:Float, halfLife:Float, elapsed:Float):Float
+	{
+		if (halfLife <= 0)
+			return target;
+		return target + (value - target) * Math.pow(2, -elapsed / halfLife);
+	}
+
+	/**
+	 * Wraps a float into the range `[min, max)`.
+	 * @since 6.2.0
+	 */
+	public static function wrapFloat(value:Float, min:Float, max:Float):Float
+	{
+		var range = max - min;
+		if (range <= 0)
+			return min;
+		var result = (value - min) % range;
+		if (result < 0)
+			result += range;
+		return result + min;
+	}
 	
 	/**
 	 * Checks if number is in defined range. A null bound means that side is unbounded.

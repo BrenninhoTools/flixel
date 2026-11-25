@@ -647,6 +647,28 @@ class FlxText extends FlxSprite
 		return (textField != null) ? (textField.autoSize != TextFieldAutoSize.NONE) : false;
 	}
 	
+	/**
+	 * Shrinks the font size until the text fits in `maxWidth`, and `maxHeight` if given.
+	 * Never goes below `minSize`. Returns the final size.
+	 * @since 6.2.0
+	 */
+	public function fitToWidth(maxWidth:Float, ?maxHeight:Float, minSize = 8, ?startSize:Int):Int
+	{
+		if (startSize != null)
+			size = startSize;
+		var current = size;
+		while (current > minSize)
+		{
+			var w = textField.textWidth + 4;
+			var h = textField.textHeight + 4;
+			if (w <= maxWidth && (maxHeight == null || h <= maxHeight))
+				break;
+			current--;
+			size = current;
+		}
+		return size;
+	}
+
 	function set_text(Text:String):String
 	{
 		text = Text;

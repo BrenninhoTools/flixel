@@ -484,6 +484,13 @@ class FlxCamera extends FlxBasic
 	 * Internal, `shake()` effect complete callback.
 	 */
 	var _fxShakeComplete:Void->Void;
+
+	var _zoomFrom:Float = 1;
+	var _zoomTarget:Float = 1;
+	var _zoomDuration:Float = 0;
+	var _zoomTime:Float = -1;
+	var _zoomEase:Float->Float;
+	var _zoomComplete:Void->Void;
 	
 	/**
 	 * Internal, defines on what axes to `shake()`. Default value is `XY` / both.
@@ -1158,6 +1165,8 @@ class FlxCamera extends FlxBasic
 		_fxFlashComplete = null;
 		_fxFadeComplete = null;
 		_fxShakeComplete = null;
+		_zoomEase = null;
+		_zoomComplete = null;
 		
 		super.destroy();
 	}
@@ -1183,6 +1192,8 @@ class FlxCamera extends FlxBasic
 			updateFade(elapsed);
 			updateShake(elapsed);
 		}
+
+		updateZoomTween(elapsed);
 		
 		updateFlashSpritePosition();
 		__updateViewportRect();
@@ -1493,6 +1504,76 @@ class FlxCamera extends FlxBasic
 	var _fxShakeXOffset:Float = 0;
 	var _fxShakeYOffset:Float = 0;
 	
+	/**
+	 * Smoothly changes the zoom over `duration` seconds.
+	 * @since 6.2.0
+	 */
+	public function zoomTo(zoom:Float, duration:Float = 0.5, ?ease:Float->Float, ?onComplete:Void->Void):Void
+	{
+		if (duration <= 0)
+		{
+			stopZoomTween();
+			this.zoom = zoom;
+			if (onComplete != null)
+				onComplete();
+			return;
+		}
+		_zoomFrom = this.zoom;
+		_zoomTarget = zoom;
+		_zoomDuration = duration;
+		_zoomTime = 0;
+		_zoomEase = ease;
+		_zoomComplete = onComplete;
+	}
+
+	/**
+	 * Adds `amount` to the zoom right away and eases back to the previous zoom, like a beat bump.
+	 * @since 6.2.0
+	 */
+	public function bumpZoom(amount:Float = 0.015, duration:Float = 0.25, ?ease:Float->Float):Void
+	{
+		var base = isZoomTweening() ? _zoomTarget : zoom;
+		zoom = base + amount;
+		zoomTo(base, duration, ease != null ? ease : function(t:Float) return 1 - (1 - t) * (1 - t));
+	}
+
+	/**
+	 * Whether `zoomTo` or `bumpZoom` is running.
+	 * @since 6.2.0
+	 */
+	public inline function isZoomTweening():Bool
+	{
+		return _zoomTime >= 0;
+	}
+
+	/**
+	 * Stops `zoomTo` or `bumpZoom` and keeps the current zoom.
+	 * @since 6.2.0
+	 */
+	public function stopZoomTween():Void
+	{
+		_zoomTime = -1;
+		_zoomEase = null;
+		_zoomComplete = null;
+	}
+
+	function updateZoomTween(elapsed:Float):Void
+	{
+		if (_zoomTime < 0)
+			return;
+		_zoomTime += elapsed;
+		var t = _zoomTime >= _zoomDuration ? 1.0 : _zoomTime / _zoomDuration;
+		var eased = _zoomEase != null ? _zoomEase(t) : t;
+		zoom = FlxMath.lerp(_zoomFrom, _zoomTarget, eased);
+		if (t >= 1)
+		{
+			var complete = _zoomComplete;
+			stopZoomTween();
+			if (complete != null)
+				complete();
+		}
+	}
+
 	function updateShake(elapsed:Float):Void
 	{
 		if (!shakeMatrixFix)

@@ -403,6 +403,56 @@ class FlxSave implements IFlxDestroyable
 	 * Scans the data for any properties.
 	 * @since 5.0.0
 	 */
+	/**
+	 * Reads a field from `data`, or `defaultValue` when it is missing or null.
+	 * @since 6.2.0
+	 */
+	public function get<T>(key:String, defaultValue:T):T
+	{
+		if (data == null || !Reflect.hasField(data, key))
+			return defaultValue;
+		var value:Dynamic = Reflect.field(data, key);
+		return value != null ? value : defaultValue;
+	}
+
+	/**
+	 * Writes a field to `data`, flushing right away when `flushNow` is true.
+	 * @since 6.2.0
+	 */
+	public function set<T>(key:String, value:T, flushNow = false):T
+	{
+		if (data != null)
+		{
+			Reflect.setField(data, key, value);
+			if (flushNow)
+				flush();
+		}
+		return value;
+	}
+
+	/**
+	 * Whether `data` has the field.
+	 * @since 6.2.0
+	 */
+	public function has(key:String):Bool
+	{
+		return data != null && Reflect.hasField(data, key);
+	}
+
+	/**
+	 * Removes a field from `data`.
+	 * @since 6.2.0
+	 */
+	public function remove(key:String, flushNow = false):Bool
+	{
+		if (data == null || !Reflect.hasField(data, key))
+			return false;
+		Reflect.deleteField(data, key);
+		if (flushNow)
+			flush();
+		return true;
+	}
+
 	public function isEmpty()
 	{
 		return data == null || Reflect.fields(data).length == 0;

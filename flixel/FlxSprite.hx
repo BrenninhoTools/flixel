@@ -743,6 +743,49 @@ class FlxSprite extends FlxObject
 	}
 
 	/**
+	 * Scales the sprite uniformly so it fits inside `width` x `height`, or covers it when `cover` is true.
+	 * Updates the hitbox.
+	 * @since 6.2.0
+	 */
+	public function fitTo(width:Float, height:Float, cover = false):FlxSprite
+	{
+		if (frameWidth <= 0 || frameHeight <= 0 || width <= 0 || height <= 0)
+			return this;
+		var ratioX = width / frameWidth;
+		var ratioY = height / frameHeight;
+		var ratio = cover ? Math.max(ratioX, ratioY) : Math.min(ratioX, ratioY);
+		scale.set(ratio, ratio);
+		updateHitbox();
+		return this;
+	}
+
+	/**
+	 * Sets the scale, `y` defaults to `x`. Updates the hitbox when `hitbox` is true.
+	 * @since 6.2.0
+	 */
+	public function scaleTo(x:Float, ?y:Float, hitbox = true):FlxSprite
+	{
+		scale.set(x, y != null ? y : x);
+		if (hitbox)
+			updateHitbox();
+		return this;
+	}
+
+	/**
+	 * Whether the sprite is drawn inside any of its cameras.
+	 * @since 6.2.0
+	 */
+	public function isVisibleOnScreen():Bool
+	{
+		for (camera in getCameras())
+		{
+			if (camera != null && camera.visible && camera.exists && isOnScreen(camera))
+				return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Updates the sprite's hitbox (`width`, `height`, `offset`) according to the current `scale`.
 	 * Also calls `centerOrigin()`.
 	 */

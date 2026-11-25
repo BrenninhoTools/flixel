@@ -1,3 +1,16 @@
+### 6.2.0 (BrenninhoTools fork)
+
+#### New features:
+- `FlxG.safeArea`: The area of the game not covered by notches, rounded corners or system bars
+- `FlxTouchManager`: Added `count`, `pressed`, `justPressedAny`, `justReleasedAny` and `overlaps`
+- `FlxMath`: Added `lerpElapsed`, `approach`, `decay` and `wrapFloat`
+- `FlxTypedGroup`: Added `count` and `filter`
+- `FlxObject`: Added `centerOn` and `alignTo`
+- `FlxSprite`: Added `fitTo`, `scaleTo` and `isVisibleOnScreen`
+- `FlxText`: Added `fitToWidth` to shrink the font until the text fits
+- `FlxCamera`: Added `zoomTo`, `bumpZoom`, `isZoomTweening` and `stopZoomTween`
+- `FlxSave`: Added `get`, `set`, `has` and `remove`
+
 ### 6.1.2 (December 6, 2025)
 
 #### Changes and improvements:

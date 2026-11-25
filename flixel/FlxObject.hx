@@ -1189,6 +1189,34 @@ class FlxObject extends FlxBasic
 	}
 	
 	/**
+	 * Centers this object on another object along the given axes.
+	 * @since 6.2.0
+	 */
+	public function centerOn(target:FlxObject, axes:FlxAxes = XY):FlxObject
+	{
+		if (target == null)
+			return this;
+		if (axes.x)
+			x = target.x + (target.width - width) / 2;
+		if (axes.y)
+			y = target.y + (target.height - height) / 2;
+		return this;
+	}
+
+	/**
+	 * Places this object relative to another one, `alignX` and `alignY` go from 0 (left/top) to 1 (right/bottom).
+	 * @since 6.2.0
+	 */
+	public function alignTo(target:FlxObject, alignX = 0.5, alignY = 0.5, offsetX = 0.0, offsetY = 0.0):FlxObject
+	{
+		if (target == null)
+			return this;
+		x = target.x + (target.width - width) * alignX + offsetX;
+		y = target.y + (target.height - height) * alignY + offsetY;
+		return this;
+	}
+
+	/**
 	 * Helper function to set the coordinates of this object.
 	 * Handy since it only requires one line of code.
 	 *

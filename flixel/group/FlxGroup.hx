@@ -541,6 +541,36 @@ class FlxTypedGroup<T:FlxBasic> extends FlxBasic implements IFlxGroupable<T>
 	}
 	
 	/**
+	 * Counts the members that satisfy the function.
+	 * @since 6.2.0
+	 */
+	public function count(func:T->Bool):Int
+	{
+		var result = 0;
+		for (basic in members)
+		{
+			if (basic != null && func(basic))
+				result++;
+		}
+		return result;
+	}
+
+	/**
+	 * Returns a new array with the members that satisfy the function.
+	 * @since 6.2.0
+	 */
+	public function filter(func:T->Bool):Array<T>
+	{
+		var result:Array<T> = [];
+		for (basic in members)
+		{
+			if (basic != null && func(basic))
+				result.push(basic);
+		}
+		return result;
+	}
+
+	/**
 	 * Call this function to retrieve the first object with `exists == false` in the group.
 	 * This is handy for recycling in general, e.g. respawning enemies.
 	 *
