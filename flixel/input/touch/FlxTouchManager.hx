@@ -75,6 +75,51 @@ class FlxTouchManager implements IFlxInputManager
 		return list[0];
 	}
 	
+	public var count(get, never):Int;
+	
+	public var pressed(get, never):Bool;
+	
+	public var justPressedAny(get, never):Bool;
+	
+	public var justReleasedAny(get, never):Bool;
+	
+	public function overlaps(object:flixel.FlxBasic, ?camera:flixel.FlxCamera):Bool
+	{
+		for (touch in list)
+			if (touch.pressed && touch.overlaps(object, camera))
+				return true;
+		return false;
+	}
+	
+	inline function get_count():Int
+	{
+		return list.length;
+	}
+	
+	function get_pressed():Bool
+	{
+		for (touch in list)
+			if (touch.pressed)
+				return true;
+		return false;
+	}
+	
+	function get_justPressedAny():Bool
+	{
+		for (touch in list)
+			if (touch.justPressed)
+				return true;
+		return false;
+	}
+	
+	function get_justReleasedAny():Bool
+	{
+		for (touch in list)
+			if (touch.justReleased)
+				return true;
+		return false;
+	}
+	
 	/**
 	 * Clean up memory. Internal use only.
 	 */

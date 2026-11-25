@@ -181,6 +181,8 @@ class FlxG
 	 * However, you may also create a class which extends `BaseScaleMode`, and override its behavior according to your needs.
 	 */
 	public static var scaleMode(default, set):BaseScaleMode = new RatioScaleMode();
+
+	public static var safeArea(get, never):FlxRect;
 	
 	/**
 	 * Use this to toggle between fullscreen and normal mode. Works on CPP, Neko and Flash.
@@ -719,6 +721,26 @@ class FlxG
 			game.stage.frameRate = drawFramerate;
 			
 		return value;
+	}
+	
+	static function get_safeArea():FlxRect
+	{
+		var rect = FlxRect.get(0, 0, width, height);
+		if (stage == null || scaleMode == null || scaleMode.scale.x <= 0 || scaleMode.scale.y <= 0)
+			return rect;
+		
+		var area:Dynamic = try Reflect.getProperty(stage, "safeArea") catch (e:Dynamic) null;
+		if (area == null || area.width <= 0 || area.height <= 0)
+			return rect;
+		
+		var left = Math.max(0, (area.x - scaleMode.offset.x) / scaleMode.scale.x);
+		var top = Math.max(0, (area.y - scaleMode.offset.y) / scaleMode.scale.y);
+		var right = Math.min(width, (area.x + area.width - scaleMode.offset.x) / scaleMode.scale.x);
+		var bottom = Math.min(height, (area.y + area.height - scaleMode.offset.y) / scaleMode.scale.y);
+		if (right <= left || bottom <= top)
+			return rect;
+		
+		return rect.set(left, top, right - left, bottom - top);
 	}
 	
 	static function get_fullscreen():Bool
